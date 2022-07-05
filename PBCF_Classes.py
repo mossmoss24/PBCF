@@ -45,9 +45,18 @@ class MacroLevel:
             pass
 
     def add_intervention(self):
-        for t in self.tech:
-            if t in self.int:
+        for t in self.tech: #iterates across every technology already entered
+            if t not in self.int: #creates a list for newly-added technologies
                 interventions = []
+                i = str(input("Enter an intervention required into " + str(t) + ":"))
+                interventions.append(i)
+                while i != "": #moves on to next technology following an empthy entry
+                    i = str(input("Enter an intervention required into " + str(t) + ":"))
+                    interventions.append(i)
+                else:
+                    pass
+            if t in self.int: #provides for updating an existing intervention list
+                interventions = self.int[str(t)]
                 i = str(input("Enter an intervention required into " + str(t) +":"))
                 interventions.append(i)
                 while i != "":
@@ -79,4 +88,33 @@ class MacroLevel:
                 for behav in interv:
                     for x in interv[behav]:
                         print(str(tech) + " " + str(behav) + " " + str(x)) #this is somewhat screwy, but it outputs each tech, intervention, and behavior even though the variable names are unclear
+
+    def update_behaviors(self):
+        for tech in self.behavior:
+            for intervention in self.behavior[tech]:
+                for behaviorList in intervention:
+                    u = str(input("What behavioral change would you like to add to " + str(intervention) + " as it relates to " + str(tech) + "?"))
+                    #self.behavior[str(tech)][intervention][str(intervention)].append(u)
+                    if u != "":
+                        intervention[str(behaviorList)].append(u)
+                    else:
+                        pass
+                    while u != "" :
+                        u = str(input("What behavioral change would you like to add to " + str(intervention) + " as it relates to " + str(tech) + "?"))
+                        #self.behavior[str(tech)][intervention][str(intervention)].append(u)
+                        if u != "":
+                            intervention[str(behaviorList)].append(u)
+                        else:
+                            pass
+                    else:
+                        pass
+
+
+#Testing and execution variables:
+aaa = MacroLevel("AAA2022", "FTC", "US")
+aaa.tech = {'facial recognition': {}, 'web tracking': {}}
+aaa.int = {'facial recognition': ['sociotechnical audit', 'informed consent'], 'web tracking': ['user opt-out', 'deanonymization']}
+aaa.behavior = {'facial recognition': [{'sociotechnical audit': ['expose data to outside researchers', 'incorporate audit feedback into product']}, {'informed consent': ['edit front-end webcopy', 'adapt database to record user consent']}], 'web tracking': [{'user opt-out': ['edit front-end functionality to enable opt-out', 'blind web tracking database to users who opt out']}, {'deanonymization': ['design anonymizing protocol', 'audit anonymizing protocol', 'red-team anonymizing protocol']}]}
+
+gdpr = MacroLevel("GDPR", "Council of Europe", "EU")
 

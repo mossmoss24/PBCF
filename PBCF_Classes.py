@@ -89,7 +89,7 @@ class MacroLevel:
             n = 1
             for interv in self.behavior[tech]:
                 for behav in interv:
-                    print("Intervention #" + str(n) + " for " + report_tech + " is " + behav + ". This requires the following behavioral change (press ENTER if there is nothing else to add):")
+                    print("Intervention #" + str(n) + " for " + report_tech + " is " + behav + ". This requires the following behavioral change:")
                     n += 1
                     a = 0
                     for x in interv[behav]:
@@ -123,12 +123,33 @@ class MacroLevel:
                         pass
 #Define a class for the micro-level analysis, that calls on the interventions and behaviors of the macro analysis
 class MicroLevel:
-    def __init__(self, intervention, behavior):
-        self.intervention = intervention
-        self.behavior = behavior
+    def __init__(self, behaviors):
+        self.behaviors = behaviors
+        self.microBehavior = {}
         self.soc_prac = {}
         self.elements = {}
         self.carriers = {}
+
+    def selectBehavior(self):
+        print("Which technology would you like to conduct a micro analysis for?")
+        selectedTech = input("You may select " + str(self.behavior.keys())[11:-2])
+
+        print("Which intervention would you like to conduct a micro analysis for? You may select: ")
+        for i in self.behavior[selectedTech]:
+            print(str(i.keys)[11:-2])
+        selectedIntervention = input("Selection: ")
+
+        print("Which behavior would you like to conduct a micro analysis for?")
+        for j in self.behavior[selectedTech][0][selectedIntervention]:
+            print j
+        selectedBehavior = input("Selection: ")
+
+        self.microBehavior[selectedBehavior] = {}
+
+
+
+
+
 
     #def findSocialPractices(self):
 
@@ -188,12 +209,20 @@ regAnalysis.get_behaviors()
 #prompt for additional technologies
 print("Would you like to add any additional technologies, interventions, or behaviors at this time?")
 print("press 'Enter' to skip adding additional items at this time")
-new_tech = input("Y/N?")
+new_tech = input("Y?")
 if new_tech == "Y" or new_tech == "y":
     print("The regulation currently being analyzed is " + str(regulationInput))
     regAnalysis.add_technology()
     regAnalysis.add_intervention()
     regAnalysis.update_behaviors()
+else:
+    pass
+
+print("Would you like to conduct a micro-level analysis now?")
+new_micro = input("Y/N?")
+if new_micro == "Y" or new_micro == "y":
+    microAnalysis = MicroLevel(regAnalysis.int, regAnalysis.behavior)
+
 else:
     pass
 

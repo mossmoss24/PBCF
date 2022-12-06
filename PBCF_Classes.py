@@ -2,9 +2,6 @@ import os
 import json
 from string import ascii_uppercase as az
 
-x = "success"
-print(x)
-
 
 # create a class that houses each of the three main components of the Practice-based Compliance Framework.
 # requires a label on creation
@@ -78,15 +75,13 @@ class MacroLevel:
             for i in self.int[t]:
                 behaviors = []
                 b = str(input("Enter a behavioral change required for intervention: " + i + " as it relates to " + t + " (press ENTER if there is nothing else to add)"))
-                behaviors.append(b)
                 while b != "":
-                    b = str(
-                        input("Enter a behavioral change required for intervention: " + i + " as it relates to " + t) + " (press ENTER if there is nothing else to add)")
                     behaviors.append(b)
+                    b = str(
+                        input("Enter a behavioral change required for intervention: " + i + " as it relates to " + t + " (press ENTER if there is nothing else to add)"))
                 else:
                     pass
-                self.behavior[str(t)].append({str(i): behaviors[
-                                                      :-1]})  # adds each behavior implicated by each intervention into each technology affected by a regulation to self.behavior() object
+                self.behavior[str(t)].append({str(i):behaviors[:-1]})  # adds each behavior implicated by each intervention into each technology affected by a regulation to self.behavior() object
 
     def get_behaviors(self):
         for tech in self.behavior:
@@ -110,7 +105,7 @@ class MacroLevel:
             for intervention in self.behavior[tech]:
                 for behaviorList in intervention:
                     u = str(input("What behavioral change would you like to add to " + str(
-                        intervention) + " as it relates to " + str(tech) + "?  (press ENTER if there is nothing else to add)"))
+                        intervention)[11:-2] + " as it relates to " + str(tech) + "?  (press ENTER if there is nothing else to add)"))
                     # self.behavior[str(tech)][intervention][str(intervention)].append(u)
                     if u != "":
                         intervention[str(behaviorList)].append(u)
@@ -118,7 +113,7 @@ class MacroLevel:
                         pass
                     while u != "":
                         u = str(input("What behavioral change would you like to add to " + str(
-                            intervention) + " as it relates to " + str(tech) + "?  (press ENTER if there is nothing else to add)"))
+                            intervention[11:-2]) + " as it relates to " + str(tech) + "?  (press ENTER if there is nothing else to add)"))
                         # self.behavior[str(tech)][intervention][str(intervention)].append(u)
                         if u != "":
                             intervention[str(behaviorList)].append(u)

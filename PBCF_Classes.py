@@ -123,28 +123,55 @@ class MacroLevel:
                         pass
 #Define a class for the micro-level analysis, that calls on the interventions and behaviors of the macro analysis
 class MicroLevel:
-    def __init__(self, behaviors):
-        self.behaviors = behaviors
+    def __init__(self, macroObject):
+        self.behaviors = macroObject.behavior
         self.microBehavior = {}
         self.soc_prac = {}
-        self.elements = {}
-        self.carriers = {}
+        self.elements = []
+        self.carriers = []
 
+    #define a function that selects a behavior from the Macro Analysis
     def selectBehavior(self):
-        print("Which technology would you like to conduct a micro analysis for?")
-        selectedTech = input("You may select " + str(self.behavior.keys())[11:-2])
+        #takes as an argument the MacroLevel.behaviors object, which should have >=1 technologies, interventions, and behaviors
+        #prompts user to select a technology from that object, saves response as a variable
+        print("Which technology would you like to conduct a micro analysis for? You may select: ")
+        iterator = 0
+        for b in self.behaviors.keys():
+            print(str(az[iterator]) + ": " + b)
+            iterator += 1
+        enteredTech = input("Enter letter: ")
+        selectedTech = self.behaviors[str(list(self.behaviors.keys())[az.index(enteredTech)])]
+        return selectedTech
 
-        print("Which intervention would you like to conduct a micro analysis for? You may select: ")
-        for i in self.behavior[selectedTech]:
-            print(str(i.keys)[11:-2])
+#[[[[restart HERE]]]]
+
+        #prompts user to select an intervention related to the selected technology, saves response as a variable
+        print("Which intervention into " + str(selectedTech) + " would you like to conduct a micro analysis for? You may select: ")
+        for i in self.behaviors[selectedTech]:
+            print(str(i.keys())[11:-2])
         selectedIntervention = input("Selection: ")
 
-        print("Which behavior would you like to conduct a micro analysis for?")
-        for j in self.behavior[selectedTech][0][selectedIntervention]:
-            print j
+        #prompts user to select a behavior that comprises the selected intervention, saves response as a variable
+        print("Which behavior pertinent to " + str(selectedIntervention) + " would you like to conduct a micro analysis for?")
+        for j in self.behaviors[selectedTech][0][selectedIntervention]:
+            print(j)
         selectedBehavior = input("Selection: ")
 
+        #creates a dictionary for a selected behavior and populates it with the name of the behavior, the intervention it is associated with, and the technology it is associated with
         self.microBehavior[selectedBehavior] = {}
+
+        spPrompt = input("Enter a social practice associated with " + str(selectedBehavior) + " :")
+        self.soc_prac[spPrompt]={}
+        while spPrompt != "":
+            spPrompt = input("Enter another social practice associated with " + str(selectedBehavior) + " :")
+            self.elements.append
+        ePrompt = input("Enter an element of the social practice " + str(spPrompt))
+        cPrompt = input("Enter a carrier of the social practice" + spPrompt)
+
+        while prompt != "":
+
+
+
 
 
 

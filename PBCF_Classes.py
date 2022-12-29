@@ -141,21 +141,25 @@ class MicroLevel:
             iterator += 1
         enteredTech = input("Enter letter: ")
         selectedTech = self.behaviors[str(list(self.behaviors.keys())[az.index(enteredTech)])]
-        return selectedTech
-
-#[[[[restart HERE]]]]
 
         #prompts user to select an intervention related to the selected technology, saves response as a variable
-        print("Which intervention into " + str(selectedTech) + " would you like to conduct a micro analysis for? You may select: ")
-        for i in self.behaviors[selectedTech]:
-            print(str(i.keys())[11:-2])
-        selectedIntervention = input("Selection: ")
+        print("Which intervention into " + str(list(self.behaviors.keys())[az.index(enteredTech)]) + " would you like to conduct a micro analysis for? You may select: ")
+        iterator = 0
+        for i in selectedTech:
+            print(str(az[iterator]) + ": " + str(i.keys())[11:-2])
+            iterator += 1
+        enteredIntervention = input("Enter letter: ")
+        selectedIntervention = selectedTech[az.index(enteredIntervention)]
 
         #prompts user to select a behavior that comprises the selected intervention, saves response as a variable
-        print("Which behavior pertinent to " + str(selectedIntervention) + " would you like to conduct a micro analysis for?")
-        for j in self.behaviors[selectedTech][0][selectedIntervention]:
-            print(j)
-        selectedBehavior = input("Selection: ")
+        print("Which behavior pertinent to " + str(selectedIntervention.keys())[11:-2] + " would you like to conduct a micro analysis for?")
+        iterator = 0
+        for j in selectedIntervention[str(selectedIntervention.keys())[12:-3]]:
+            print(str(az[iterator]) + ": " + j)
+            iterator += 1
+        enteredBehavior = input("Selection: ")
+        selectedBehavior = selectedIntervention[str(selectedIntervention.keys())[12:-3]][az.index(enteredBehavior)]
+        return selectedBehavior
 
         #creates a dictionary for a selected behavior and populates it with the name of the behavior, the intervention it is associated with, and the technology it is associated with
         self.microBehavior[selectedBehavior] = {}

@@ -124,14 +124,16 @@ class MacroLevel:
 #Define a class for the micro-level analysis, that calls on the interventions and behaviors of the macro analysis
 class MicroLevel:
     def __init__(self, macroObject):
+        self.regulation = macroObject.reg
+        self.territory = macroObject.terr
+        self.authority = macroObject.auth
         self.behaviors = macroObject.behavior
-        self.microBehavior = {}
-        self.soc_prac = {}
-        self.elements = []
-        self.carriers = []
+        self.focusIntervention = None
+        self.interventionBehaviors = []
+        self.socialPractices = {}
 
-    #define a function that selects a behavior from the Macro Analysis
-    def selectBehavior(self):
+    #define a function that selects an intervention from the Macro Analysis
+    def selectIntervention(self):
         #takes as an argument the MacroLevel.behaviors object, which should have >=1 technologies, interventions, and behaviors
         #prompts user to select a technology from that object, saves response as a variable
         print("Which technology would you like to conduct a micro analysis for? You may select: ")
@@ -150,29 +152,65 @@ class MicroLevel:
             iterator += 1
         enteredIntervention = input("Enter letter: ")
         selectedIntervention = selectedTech[az.index(enteredIntervention)]
+        self.focusIntervention = str(selectedIntervention.keys())[11:-2]
 
         #prompts user to select a behavior that comprises the selected intervention, saves response as a variable
-        print("Which behavior pertinent to " + str(selectedIntervention.keys())[11:-2] + " would you like to conduct a micro analysis for?")
-        iterator = 0
+        print("The behaviors relevant to " + str(selectedIntervention.keys())[11:-2] + " are:")
         for j in selectedIntervention[str(selectedIntervention.keys())[12:-3]]:
-            print(str(az[iterator]) + ": " + j)
-            iterator += 1
-        enteredBehavior = input("Selection: ")
-        selectedBehavior = selectedIntervention[str(selectedIntervention.keys())[12:-3]][az.index(enteredBehavior)]
-        return selectedBehavior
+            self.interventionBehaviors.append(j)
+            print(j)
 
-        #creates a dictionary for a selected behavior and populates it with the name of the behavior, the intervention it is associated with, and the technology it is associated with
-        self.microBehavior[selectedBehavior] = {}
+#define a function to add a single key to the social practices dictionary, with predefined elements and carriers keys, that prompts for entries for those keys
+    def enterSocialPractice(self):
+        spPrompt = input("Enter a social practice associated with " + str(self.focusIntervention) + " :")
+        self.socialPractices[spPrompt]={'elements':{'meanings':[], 'competencies':[], 'materials':[]}, 'carriers':[]}
 
-        spPrompt = input("Enter a social practice associated with " + str(selectedBehavior) + " :")
-        self.soc_prac[spPrompt]={}
-        while spPrompt != "":
-            spPrompt = input("Enter another social practice associated with " + str(selectedBehavior) + " :")
-            self.elements.append
-        ePrompt = input("Enter an element of the social practice " + str(spPrompt))
-        cPrompt = input("Enter a carrier of the social practice" + spPrompt)
+        #prompt for meanings, competencies, materials, and carriers
+        #materials
+        mats = []
+        matPrompt = input("Enter a material associated with " + str(spPrompt) + " :")
+        mats.append(matPrompt)
 
-        while prompt != "":
+        while matPrompt != "":
+            matPrompt = input("Enter another material associated with " + str(spPrompt) + " :")
+            mats.append(matPrompt)
+
+        self.socialPractices[spPrompt]['elements']['materials'] = mats[:-1]
+
+        #meanings
+        means = []
+        meanPrompt = input("Enter a meaning associated with " + str(spPrompt) + " :")
+        means.append(meanPrompt)
+
+        while meanPrompt != "":
+            meanPrompt = input("Enter another meaning associated with " + str(spPrompt) + " :")
+            means.append(meanPrompt)
+
+        self.socialPractices[spPrompt]['elements']['meanings'] = means[:-1]
+
+        #competencies
+        comps = []
+        compPrompt = input("Enter a competency associated with " + str(spPrompt) + " :")
+        comps.append(compPrompt)
+
+        while compPrompt != "":
+            compPrompt = input("Enter another competency associated with " + str(spPrompt) + " :")
+            comps.append(compPrompt)
+
+        self.socialPractices[spPrompt]['elements']['competencies'] = comps[:-1]
+
+        #carriers
+        carrs = []
+        carrPrompt = input("Enter a carrier of " + str(spPrompt) + " :")
+        carrs.append(carrPrompt)
+
+        while carrPrompt != "":
+            carrPrompt = input("Enter another carrier of " + str(spPrompt) + " :")
+            carrs.append(carrPrompt)
+
+        self.socialPractices[spPrompt]['carriers'] = carrs[:-1]
+
+#[[[RESTART HERE]]]
 
 
 

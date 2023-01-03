@@ -290,10 +290,13 @@ else:
 print("Would you like to conduct a micro-level analysis now?")
 new_micro = input("Y/N?")
 if new_micro == "Y" or new_micro == "y":
-    microAnalysis = MicroLevel(regAnalysis.int, regAnalysis.behavior)
-
+    microAnalysis = MicroLevel(regAnalysis)
+    microAnalysis.selectIntervention()
+    microAnalysis.enterSocialPractice()
 else:
     pass
+
+
 
 ### To-do: (1) "update" function dosen't seem to be working properly (2) add JSON functionality
 

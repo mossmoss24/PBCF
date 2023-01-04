@@ -131,6 +131,7 @@ class MicroLevel:
         self.focusIntervention = None
         self.interventionBehaviors = []
         self.socialPractices = {}
+        self.allInterventions = {}
 
     #define a function that selects an intervention from the Macro Analysis
     def selectIntervention(self):
@@ -210,7 +211,11 @@ class MicroLevel:
 
         self.socialPractices[spPrompt]['carriers'] = carrs[:-1]
 
-#[[[RESTART HERE]]]
+#[[[restart below]]]
+#class Synthesis:
+#    def __init__(self, macro, micro):
+
+
 
 
 
@@ -293,6 +298,18 @@ if new_micro == "Y" or new_micro == "y":
     microAnalysis = MicroLevel(regAnalysis)
     microAnalysis.selectIntervention()
     microAnalysis.enterSocialPractice()
+    microAnalysis.allInterventions[microAnalysis.focusIntervention[1:-1]] = {'intervention behaviors': microAnalysis.interventionBehaviors, 'social practices': microAnalysis.socialPractices}
+else:
+    pass
+
+new_micro = input("Would you like to conduct another micro-level analysis now (Y/N)?")
+while new_micro == "Y" or new_micro == "y":
+    microAnalysis.selectIntervention()
+    microAnalysis.enterSocialPractice()
+    microAnalysis.allInterventions[microAnalysis.focusIntervention[1:-1]] = {
+        'intervention behaviors': microAnalysis.interventionBehaviors,
+        'social practices': microAnalysis.socialPractices}
+    new_micro = input("Would you like to conduct another micro-level analysis now (Y/N)?")
 else:
     pass
 

@@ -315,7 +315,6 @@ else:
 
 
 
-### To-do: (1) "update" function dosen't seem to be working properly (2) add JSON functionality
 
 
 

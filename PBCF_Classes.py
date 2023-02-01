@@ -83,7 +83,7 @@ class MacroLevel:
                         input("Enter a behavioral change required for intervention: " + i + " as it relates to " + t + " (press ENTER if there is nothing else to add)"))
                 else:
                     pass
-                self.behavior[str(t)].append({str(i):behaviors[:-1]})  # adds each behavior implicated by each intervention into each technology affected by a regulation to self.behavior() object
+                self.behavior[str(t)].append({str(i):behaviors})  # adds each behavior implicated by each intervention into each technology affected by a regulation to self.behavior() object
 
     def get_behaviors(self):
         for tech in self.behavior:
@@ -134,6 +134,7 @@ class MicroLevel:
         self.interventionBehaviors = []
         self.socialPractices = {}
         self.allInterventions = {}
+        self.selectedTech = None
 
     #define a function that selects an intervention from the Macro Analysis
     def selectIntervention(self):
@@ -145,7 +146,9 @@ class MicroLevel:
             print(str(az[iterator]) + ": " + b)
             iterator += 1
         enteredTech = input("Enter letter: ")
+        self.selectedTech = list(self.behaviors.keys())[az.index(enteredTech)]
         selectedTech = self.behaviors[str(list(self.behaviors.keys())[az.index(enteredTech)])]
+        #self.selectedTech = list(self.behaviors.keys())[]
 
         #prompts user to select an intervention related to the selected technology, saves response as a variable
         print("Which intervention into " + str(list(self.behaviors.keys())[az.index(enteredTech)]) + " should be in focus? [Out of the following list, pick one concrete intervention for micro-level analysis.] You may select: ")

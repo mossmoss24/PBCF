@@ -32,7 +32,7 @@ class MacroLevel:
         self.auth = authority
         self.terr = territory
         self.tech = {}  # technology
-        self.app = []  # applications (ie, specific products)
+        self.definition = {}  # tech definition
         self.int = {}  # intervention
         self.behavior = {}  # organization-wide behavioral change required
 
@@ -40,6 +40,8 @@ class MacroLevel:
         i = str(input("Enter a technology affected by this regulation (press ENTER if there is nothing else to add):"))
         while i != "":
             self.tech[i] = {}
+            j = str(input("Enter a definition of " + str(i)) + ":")
+            self.definition[i] = j
             i = str(input("Enter a technology affected by this regulation (press ENTER if there is nothing else to add):"))
         else:
             pass

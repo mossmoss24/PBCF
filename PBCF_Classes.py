@@ -148,7 +148,7 @@ class MicroLevel:
         selectedTech = self.behaviors[str(list(self.behaviors.keys())[az.index(enteredTech)])]
 
         #prompts user to select an intervention related to the selected technology, saves response as a variable
-        print("Which intervention into " + str(list(self.behaviors.keys())[az.index(enteredTech)]) + " would you like to conduct a micro analysis for? You may select: ")
+        print("Which intervention into " + str(list(self.behaviors.keys())[az.index(enteredTech)]) + " should be in focus? [Out of the following list, pick one concrete intervention for micro-level analysis.] You may select: ")
         iterator = 0
         for i in selectedTech:
             print(str(az[iterator]) + ": " + str(i.keys())[11:-2])
@@ -165,7 +165,7 @@ class MicroLevel:
 
 #define a function to add a single key to the social practices dictionary, with predefined elements and carriers keys, that prompts for entries for those keys
     def enterSocialPractice(self):
-        spPrompt = input("Enter a social practice associated with " + str(self.focusIntervention) + " :")
+        spPrompt = input("Within an organization, what are the existing practices affected by " + str(self.focusIntervention) + " :")
         self.socialPractices[spPrompt]={'elements':{'meanings':[], 'competencies':[], 'materials':[]}, 'carriers':[]}
 
         #prompt for meanings, competencies, materials, and carriers
@@ -213,9 +213,27 @@ class MicroLevel:
 
         self.socialPractices[spPrompt]['carriers'] = carrs[:-1]
 
-#[[[restart below]]]
-#class Synthesis:
-#    def __init__(self, macro, micro):
+    def reportMicroAnalysis(self):
+        print("The current Micro-level Analysis contains " + str(len(microAnalysis.allInterventions)) + " interventions: ")
+        print(str(microAnalysis.allInterventions.keys())[12:-3])
+        print("The current focus intervention is " + str(microAnalysis.focusIntervention) + ".")
+        print(str(microAnalysis.focusIntervention) + " is associated with the following practices, which each have associated elements and carriers):")
+        for p in list(microAnalysis.socialPractices.keys()):
+            print("Social Practice: " + str(p) + " has the following elements:")
+            print("Meanings: " + str(microAnalysis.socialPractices[p]['elements']['meanings']))
+            print("Competencies: " + str(microAnalysis.socialPractices[p]['elements']['competencies']))
+            print("Materials: " + str(microAnalysis.socialPractices[p]['elements']['materials']))
+            print("Carriers: " + str(microAnalysis.socialPractices[p]['carriers']))
+            print("\n")
+
+class Synthesis:
+    def __init__(self, macro, micro):
+        self.macro = macro
+        self.micro = micro
+
+
+
+
 
 
 
@@ -283,16 +301,16 @@ for t in regAnalysis.tech:
 regAnalysis.get_behaviors()
 
 #prompt for additional technologies
-print("Would you like to add any additional technologies, interventions, or behaviors at this time?")
-print("press 'Enter' to skip adding additional items at this time")
-new_tech = input("Y?")
-if new_tech == "Y" or new_tech == "y":
-    print("The regulation currently being analyzed is " + str(regulationInput))
-    regAnalysis.add_technology()
-    regAnalysis.add_intervention()
-    regAnalysis.update_behaviors()
-else:
-    pass
+#print("Would you like to add any additional technologies, interventions, or behaviors at this time?")
+#print("press 'Enter' to skip adding additional items at this time")
+#new_tech = input("Y?")
+#if new_tech == "Y" or new_tech == "y":
+#    print("The regulation currently being analyzed is " + str(regulationInput))
+#    regAnalysis.add_technology()
+#    regAnalysis.add_intervention()
+#    regAnalysis.update_behaviors()
+#else:
+#    pass
 
 print("Would you like to conduct a micro-level analysis now?")
 new_micro = input("Y/N?")
@@ -304,19 +322,20 @@ if new_micro == "Y" or new_micro == "y":
 else:
     pass
 
-new_micro = input("Would you like to conduct another micro-level analysis now (Y/N)?")
-while new_micro == "Y" or new_micro == "y":
-    microAnalysis.selectIntervention()
-    microAnalysis.enterSocialPractice()
-    microAnalysis.allInterventions[microAnalysis.focusIntervention[1:-1]] = {
-        'intervention behaviors': microAnalysis.interventionBehaviors,
-        'social practices': microAnalysis.socialPractices}
-    new_micro = input("Would you like to conduct another micro-level analysis now (Y/N)?")
-else:
-    pass
+#new_micro = input("Would you like to conduct another micro-level analysis now (Y/N)?")
+#while new_micro == "Y" or new_micro == "y":
+#    microAnalysis.selectIntervention()
+#    microAnalysis.enterSocialPractice()
+#    microAnalysis.allInterventions[microAnalysis.focusIntervention[1:-1]] = {
+#        'intervention behaviors': microAnalysis.interventionBehaviors,
+#        'social practices': microAnalysis.socialPractices}
+#    new_micro = input("Would you like to conduct another micro-level analysis now (Y/N)?")
+#else:
+#    pass
 
 
 
 
 
 
+synth = Synthesis(regAnalysis, microAnalysis)

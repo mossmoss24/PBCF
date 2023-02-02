@@ -1,4 +1,9 @@
-import os
+#Practice-based Compliance Framework developed by Mona Sloane, PhD. and Emanuel D. Moss, PhD.
+#Article and additional documentation available at https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4060262
+#
+#released under GNU General Public License v3.0
+#
+
 import json
 from string import ascii_uppercase as az
 
@@ -95,7 +100,6 @@ class MacroLevel:
                     n += 1
                     a = 0
                     for x in interv[behav]:
-                        # print(str(tech) + " " + str(behav) + " " + str(x)) #this is somewhat screwy, but it outputs each tech, intervention, and behavior even though the variable names are unclear
                         if a < 25:
                             print(str(az[a] + ") " + x))
                             a += 1
@@ -108,7 +112,6 @@ class MacroLevel:
                 for behaviorList in intervention:
                     u = str(input("What behavioral change would you like to add to " + str(
                         intervention)[11:-2] + " as it relates to " + str(tech) + "?  (press ENTER if there is nothing else to add)"))
-                    # self.behavior[str(tech)][intervention][str(intervention)].append(u)
                     if u != "":
                         intervention[str(behaviorList)].append(u)
                     else:
@@ -116,13 +119,13 @@ class MacroLevel:
                     while u != "":
                         u = str(input("What behavioral change would you like to add to " + str(
                             intervention[11:-2]) + " as it relates to " + str(tech) + "?  (press ENTER if there is nothing else to add)"))
-                        # self.behavior[str(tech)][intervention][str(intervention)].append(u)
                         if u != "":
                             intervention[str(behaviorList)].append(u)
                         else:
                             pass
                     else:
                         pass
+
 #Define a class for the micro-level analysis, that calls on the interventions and behaviors of the macro analysis
 class MicroLevel:
     def __init__(self, macroObject):
@@ -148,7 +151,7 @@ class MicroLevel:
         enteredTech = input("Enter letter: ")
         self.selectedTech = list(self.behaviors.keys())[az.index(enteredTech)]
         selectedTech = self.behaviors[str(list(self.behaviors.keys())[az.index(enteredTech)])]
-        #self.selectedTech = list(self.behaviors.keys())[]
+
 
         #prompts user to select an intervention related to the selected technology, saves response as a variable
         print("Which intervention into " + str(list(self.behaviors.keys())[az.index(enteredTech)]) + " should be in focus? [Out of the following list, pick one concrete intervention for micro-level analysis.] You may select: ")
@@ -216,9 +219,11 @@ class MicroLevel:
 
         self.socialPractices[spPrompt]['carriers'] = carrs[:-1]
 
+#function to report contents of the micro-level analysis
     def reportMicroAnalysis(self):
         print("The current Micro-level Analysis contains " + str(len(microAnalysis.allInterventions)) + " interventions: ")
         print(str(microAnalysis.allInterventions.keys())[12:-3])
+        print("The current focus technology is " + str(microAnalysis.selectedTech) + ".")
         print("The current focus intervention is " + str(microAnalysis.focusIntervention) + ".")
         print(str(microAnalysis.focusIntervention) + " is associated with the following practices, which each have associated elements and carriers):")
         for p in list(microAnalysis.socialPractices.keys()):
@@ -229,49 +234,37 @@ class MicroLevel:
             print("Carriers: " + str(microAnalysis.socialPractices[p]['carriers']))
             print("\n")
 
-class Synthesis:
+#defines a class to contain the synthetic analysis
+class syntheticAnalysis:
     def __init__(self, macro, micro):
         self.macro = macro
         self.micro = micro
+        self.synthesis = {}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #def findSocialPractices(self):
-
-#something like:
-#x = input("Which technology are you interested in running a Micro Analysis for?" + for i in range(len(aaa.behavior): for x in aaa.behavior: print(az[i] + ": " + aaa.behavior[x])
-
+#defines a function that will prompt user for entries to complete synthetic analysis
+    def populateSyntheticAnalysis(self):
+        self.synthesis['Element Changes'] = input("How does one or multiple elements of the practice have to change in order to achieve the behavioral change?")
+        self.synthesis['Process Changes'] = input("What are existing (organizational) processes that can be leveraged to achieve the desired change on the level of the elements?")
+        self.synthesis['Lead Carriers'] = input("Who are the high-potential carriers of practice who can spearhead this recalibration of the social practice?")
 
 # Testing and execution variables:
-aaa = MacroLevel("AAA2022", "FTC", "US")
-aaa.tech = {'facial recognition': {}, 'web tracking': {}}
-aaa.int = {'facial recognition': ['sociotechnical audit', 'informed consent'],
-           'web tracking': ['user opt-out', 'deanonymization']}
-aaa.behavior = {'facial recognition': [
-    {'sociotechnical audit': ['expose data to outside researchers', 'incorporate audit feedback into product']},
-    {'informed consent': ['edit front-end webcopy', 'adapt database to record user consent']}], 'web tracking': [{
-                                                                                                                     'user opt-out': [
-                                                                                                                         'edit front-end functionality to enable opt-out',
-                                                                                                                         'blind web tracking database to users who opt out']},
-                                                                                                                 {
-                                                                                                                     'deanonymization': [
-                                                                                                                         'design anonymizing protocol',
-                                                                                                                         'audit anonymizing protocol',
-                                                                                                                         'red-team anonymizing protocol']}]}
-
-gdpr = MacroLevel("GDPR", "Council of Europe", "EU")
+#aaa = MacroLevel("AAA2022", "FTC", "US")
+#aaa.tech = {'facial recognition': {}, 'web tracking': {}}
+#aaa.int = {'facial recognition': ['sociotechnical audit', 'informed consent'],
+#           'web tracking': ['user opt-out', 'deanonymization']}
+#aaa.behavior = {'facial recognition': [
+#    {'sociotechnical audit': ['expose data to outside researchers', 'incorporate audit feedback into product']},
+#    {'informed consent': ['edit front-end webcopy', 'adapt database to record user consent']}], 'web tracking': [{
+#                                                                                                                     'user opt-out': [
+#                                                                                                                         'edit front-end functionality to enable opt-out',
+#                                                                                                                         'blind web tracking database to users who opt out']},
+#                                                                                                                 {
+#                                                                                                                     'deanonymization': [
+#                                                                                                                         'design anonymizing protocol',
+#                                                                                                                         'audit anonymizing protocol',
+#                                                                                                                         'red-team anonymizing protocol']}]}
+#
+#gdpr = MacroLevel("GDPR", "Council of Europe", "EU")
 
 #Script for prompting users to fill out Compliance worksheet
 
@@ -303,7 +296,7 @@ for t in regAnalysis.tech:
 
 regAnalysis.get_behaviors()
 
-#prompt for additional technologies
+#prompt for additional technologies - uncomment to add this functionality to the runtime script
 #print("Would you like to add any additional technologies, interventions, or behaviors at this time?")
 #print("press 'Enter' to skip adding additional items at this time")
 #new_tech = input("Y?")
@@ -315,6 +308,7 @@ regAnalysis.get_behaviors()
 #else:
 #    pass
 
+#prompt for user to conduct micro-level analysis
 print("Would you like to conduct a micro-level analysis now?")
 new_micro = input("Y/N?")
 if new_micro == "Y" or new_micro == "y":
@@ -325,6 +319,8 @@ if new_micro == "Y" or new_micro == "y":
 else:
     pass
 
+#prompt to conduct subsequent micro-level analyses - uncomment for functionality
+#
 #new_micro = input("Would you like to conduct another micro-level analysis now (Y/N)?")
 #while new_micro == "Y" or new_micro == "y":
 #    microAnalysis.selectIntervention()
@@ -336,9 +332,39 @@ else:
 #else:
 #    pass
 
+#prompt user to conduct synthetic analysis
+print("Would you like to conduct a synthesis, based on the micro-level analysis, now?")
+new_synth = input("Y/N?")
+if new_synth == "Y" or new_synth == "y":
+    synth = syntheticAnalysis(regAnalysis, microAnalysis)
+    syntheticAnalysis.populateSyntheticAnalysis(synth)
+
+#compile analyses into single dictionary
+full_analysis = {}
+
+#create a temporary dictionary to extract behaviors
+behaviors = {}
+
+#pull behaviors for each intervention out, so they are not bucketed by technology
+for i in regAnalysis.behavior:
+    for j in regAnalysis.behavior[i]:
+        behaviors[list(j.keys())[0]] = j[list(j.keys())[0]]
+
+#populate dict with all three analyses
+full_analysis['Macro-level Analysis'] = {'Regulation': regAnalysis.reg, 'Authority': regAnalysis.auth, 'Territory': regAnalysis.terr, 'Technologies': list(regAnalysis.tech.keys()), 'Technology Definitions': regAnalysis.definition, 'Technology Interventions': regAnalysis.int, 'Intervention Behaviors': behaviors}
+full_analysis['Micro-level Analysis'] = {'Selected Technology': microAnalysis.selectedTech, 'Focus Intervention': microAnalysis.focusIntervention, 'Focus Intervention Behaviors': microAnalysis.interventionBehaviors, 'Social Practices': microAnalysis.socialPractices}
+full_analysis['Synthetic Analysis'] = synth.synthesis
 
 
+#JSON Dump of completed PCF
 
+#prompt user for filename
+filename = input("Enter a file name for exporting a json of the completed analysis:")
 
+if filename != "":
+    with open(str(filename) + ".json", "w") as writefile:
+        json.dump(full_analysis, writefile)
+else:
+    pass
 
-synth = Synthesis(regAnalysis, microAnalysis)
+print("Thank You!")
